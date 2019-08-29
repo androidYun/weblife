@@ -25,6 +25,11 @@
         class="operation_div">
       </el-table-column>
       <el-table-column
+        prop="goodPrice"
+        label="价格"
+        class="operation_div">
+      </el-table-column>
+      <el-table-column
         prop="maxCount"
         label="最大数量"
         class="operation_div">
@@ -57,10 +62,10 @@
       <el-table-column
         label="操作"
         width="300">
-        <template slot-scope="scope">
-          <el-button @click="addReserveGood(scope.row)" type="success" icon="el-icon-add">添加</el-button>
-          <el-button @click="deleteUnit(scope.row)" type="primary" icon="el-icon-edit">编辑</el-button>
-          <el-button @click="deleteUnit(scope.row)" type="danger" icon="el-icon-delete">删除</el-button>
+        <template slot-scope="scope" class="operation_btn">
+          <el-button @click="addReserveGood(scope.row)" type="success" size="small" icon="el-icon-add">添加</el-button>
+          <el-button @click="editReserveGood(scope.row)" type="primary" size="small" icon="el-icon-edit">编辑</el-button>
+          <el-button @click="deleteReserveGood(scope.row)" type="danger" size="small" icon="el-icon-delete">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -79,9 +84,24 @@
             addReserveGood(row) {
                 this.$router.push({
                     path: "reserve/add",
-                    params: {
-                        reserveId: row.reserveId
+                    query: {
+                        reserveId: row.reserveId,
+                        type: 0
                     }
+                })
+            },
+            editReserveGood(row) {
+                this.$router.push({
+                    path: "reserve/add",
+                    query: {
+                        reserveId: row.reserveId,
+                        type: 1
+                    }
+                })
+            },
+            deleteReserveGood(row) {
+                this.$netUtils.get(this.$apis.reserve_delete + row.reserveId).then((response) => {
+                    this.reserveList = response.data;
                 })
             }
         },
@@ -98,5 +118,9 @@
 
   .operation_div {
     width: 10%;
+  }
+
+  .operation_div .operation_btn {
+    display: flex;
   }
 </style>

@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import NetUtils from '@/utils/NetUtils'
+import Constant from '@/utils/Constant'
 import StringUtils from '@/utils/StringUtils'
+import SessionStorageUtils from '@/utils/SessionStorageUtils'
 /* 获取Apis */
 import Apis from '@/utils/Api'
 import router from './router'
@@ -88,6 +90,7 @@ import {
 } from 'element-ui';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'
+
 Vue.use(Pagination);
 Vue.use(Dialog);
 Vue.use(Autocomplete);
@@ -169,6 +172,8 @@ Vue.config.productionTip = false;
 Vue.prototype.$netUtils = NetUtils;
 Vue.prototype.$stringUtils = StringUtils;
 Vue.prototype.$apis = Apis;
+Vue.prototype.$constant = Constant;
+Vue.prototype.sessionUtils = SessionStorageUtils;
 import QS from 'qs'
 /* eslint-disable no-new */
 new Vue({
@@ -176,4 +181,16 @@ new Vue({
   router,
   components: {App},
   template: '<App/>'
+});
+router.beforeEach((to, from, next) => {
+  let loginState=SessionStorageUtils.getLoginState();
+  if (!loginState) {
+    if (to.path === '/login') { //这就是跳出循环的关键
+      next()
+    } else {
+      next({path: "/login"});
+    }
+  } else {
+    next();
+  }
 });

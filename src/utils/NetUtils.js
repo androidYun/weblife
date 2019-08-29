@@ -18,7 +18,7 @@ export default {
           } else {
             reject({
               code: 0,
-              msg: response.data.msg,
+              msg: response.data.message,
               data: {}
             });
           }
@@ -44,6 +44,37 @@ export default {
             reject({
               code: 0,
               msg: "",
+              data: ""
+            });
+          }
+        }, err => {
+          reject({
+            code: 0,
+            msg: err,
+            data: {}
+          });
+        }).catch((error) => {
+        console.log("错误" + error);
+      })
+    })
+  },
+  updateFile(url, file) {
+    let param = new FormData();
+    param.append("uploadFile", file);
+    return new Promise((resolve, reject) => {
+      axios.post(url, param,
+        {
+          headers: {"Content-Type": "multipart/form-data"}
+        }
+      )
+        .then(function (response) {
+          console.log(response.status + "响应数据" + response.data.code);
+          if (response.status === 200 && response.data.code === 200) {
+            resolve(response.data)
+          } else {
+            reject({
+              code: 0,
+              msg: response.data.message,
               data: ""
             });
           }

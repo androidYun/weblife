@@ -46,7 +46,7 @@
       <el-col :span="8">
         <div class="item">
           <span class="title">派送类型</span>
-          <el-select class="input" v-model="defaultDeliveryValue" @change="test" placeholder="请选择">
+          <el-select class="input" v-model="defaultDeliveryValue" @change="selectDeliveryType" placeholder="请选择">
             <el-option
               v-for="item in deliveryOptions"
               :key="item.label"
@@ -84,6 +84,7 @@
           <el-date-picker
             v-model="reserveGood.reserveFinishTime"
             type="datetime"
+            value-format="yyyy-MM-dd hh:mm:ss"
             placeholder="选择日期时间">
           </el-date-picker>
         </div>
@@ -92,6 +93,7 @@
         <div class="item">
           <span class="title">派送时间</span>
           <el-date-picker
+            value-format="yyyy-MM-dd hh:mm:ss"
             v-model="reserveGood.deliveryTime"
             type="datetime"
             placeholder="选择日期时间">
@@ -104,12 +106,19 @@
     <div class="submit_update_image">
       <el-upload
         class="upload-demo"
-        action="https://jsonplaceholder.typicode.com/posts/"
+        ref="upload"
+        action="http://127.0.0.1:8080/file/singleImageUpdate"
         :on-preview="handlePreview"
+        :auto-upload="false"
         :on-remove="handleRemove"
+        :on-error="updateFail"
+        :on-success="updateSuccess"
         :file-list="filterFileList"
+        name="uploadFile"
         list-type="picture">
-        <el-button size="small" type="primary">点击上传</el-button>
+        <el-button slot="trigger" size="small" type="primary">选择文件</el-button>
+        <el-button style="margin-left: 10px;" size="small" type="success" @click="updateImage">上传到服务器
+        </el-button>
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
       <el-button type="primary" @click="submitReserveProtect">提交数据</el-button>
@@ -123,7 +132,7 @@
         data() {
             return {
                 reserveGood: {
-                    imageUrl: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2413963443,3953447049&fm=26&gp=0.jpg",
+                    imageUrl: "",
                     goodName: "",
                     maxCount: 0,
                     goodDesc: "",
@@ -139,7 +148,8 @@
                 },
                 filterFileList: [],
                 goodUnitList: [],
-                defaultDeliveryValue:"派送和自取都支持",
+                updateImageUrl: "http://127.0.0.1:8080/file/singleImageUpdate",
+                defaultDeliveryValue: "派送和自取都支持",
                 deliveryOptions: [{
                     value: '0',
                     label: '派送和自取都支持'
@@ -153,11 +163,14 @@
             }
         },
         methods: {
-            test(key){
-              this.deliveryType=this.deliveryOptions[key].value
+            selectDeliveryType(key) {
+                this.deliveryType = this.deliveryOptions[key].value
+            },
+            updateImage() {
+                this.$refs.upload.submit();
             },
             submitReserveProtect: function () {
-                console.log(this.reserveGood.goodName);
+
                 if (this.$stringUtils.isEmpty(this.reserveGood.goodName)) {
                     this.$message({
                         message: '商品名字不能为空',
@@ -228,31 +241,65 @@
                     });
                     return
                 }
-                if (this.reserveGood.imageUrl.length <= 0) {
+                if (this.$stringUtils.isEmpty(this.reserveGood.imageUrl)) {
                     this.$message({
                         message: '请选择图片',
                         type: 'warning'
                     });
                     return
                 }
-                console.log("dd"+this.reserveGood.deliveryType);
-                this.$netUtils.post(this.$apis.reserve_add, this.reserveGood)
-                    .then((response) => {
-                        this.$router.back()
-                    })
+                let type = this.$route.query.type;
+                if (type === 0) {
+                    this.$netUtils.post(this.$apis.reserve_add, this.reserveGood)
+                        .then((response) => {
+                            this.$router.back()
+                        })
+                } else {
+                    this.$netUtils.post(this.$apis.reserve_add, this.reserveGood)
+                        .then((response) => {
+                            this.$router.back()
+                        })
+                }
+
             },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
+            updateSuccess(response, file, fileList) {
+                console.log("上传成功", response.data);
+                this.reserveGood.imageUrl = response.data;
+            },
+
+            updateFail(err, file, fileList) {
+                console.log("失败" + fileList.length);
+            },
             handlePreview(file) {
-                console.log(file);
+                console.log("预览" + file.url + "  " + this.filterFileList.length);
             }
 
         },
         mounted() {
             this.$netUtils.get(this.$apis.unit_list).then((response) => {
                 this.goodUnitList = response.data;
-            })
+            });
+            let type = this.$route.query.type;
+            let reserveId = this.$route.query.reserveId;
+            if (type === 1) {
+                this.$netUtils.get(this.$apis.reserve_detail + reserveId).then((response) => {
+                    this.reserveGood = response.data;
+                    this.filterFileList = [this.reserveGood.imageUrl]
+                });
+            }
+        },
+        props: {
+            reserveId: {
+                type: Number,
+                default: 0
+            },
+            type: {
+                type: Number, //0是添加 1是编辑
+                default: 0
+            }
         }
     }
 </script>

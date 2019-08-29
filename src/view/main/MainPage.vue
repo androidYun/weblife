@@ -4,9 +4,8 @@
       <el-col :span="3" class="navi">
         <h5 class="title">预购管理系统</h5>
         <el-menu
-          default-active="/main/unit"
+          default-active="/main/reserve"
           class="el-menu-vertical-demo"
-          @select="handleOpen"
           background-color="#545c64"
           text-color="#fff"
           router
@@ -49,21 +48,6 @@
             return {}
         },
         methods: {
-            handleOpen(key, keyPath) {
-                // if (key === 5) {
-                //     this.$router.push({
-                //         path: "/main/unit"
-                //     })
-                // } else {
-                //     this.$router.push({
-                //         path: "/main/unit"
-                //     })
-                // }
-
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
-            }
         }
     }
 </script>

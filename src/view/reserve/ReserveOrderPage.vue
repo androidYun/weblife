@@ -50,7 +50,11 @@
         </template>
       </el-table-column>
     </el-table>
-
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="allCount">
+    </el-pagination>
   </div>
 </template>
 
@@ -58,12 +62,21 @@
     export default {
         data() {
             return {
-                reserveOrderList: []
+                reserveOrderList: [],
+                allCount: 10
             }
         },
         mounted() {
-            this.$netUtils.get(this.$apis.reserve_order_detail, {reserveId: 5}).then((response) => {
-                this.reserveOrderList = response.data;
+            this.$netUtils.get(this.$apis.reserve_order_detail, {
+                reserveId: 5,
+                pageData: {
+                    pageSize: 0,
+                    pageNumber:
+                        10
+                }
+            }).then((response) => {
+                this.reserveOrderList = response.data.list;
+                this.allCount = response.data.totalCount;
             })
         },
         props: {
