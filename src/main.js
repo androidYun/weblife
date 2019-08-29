@@ -182,15 +182,15 @@ new Vue({
   components: {App},
   template: '<App/>'
 });
-router.beforeEach((to, from, next) => {
-  let loginState=SessionStorageUtils.getLoginState();
-  if (!loginState) {
-    if (to.path === '/login') { //这就是跳出循环的关键
-      next()
-    } else {
-      next({path: "/login"});
-    }
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   let loginState=SessionStorageUtils.getLoginState();
+//   if (!loginState) {
+//     if (to.path === '/login') { //这就是跳出循环的关键
+//       next()
+//     } else {
+//       next({path: "/login"});
+//     }
+//   } else {
+//     next();
+//   }
+// });

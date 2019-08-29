@@ -10,6 +10,7 @@ import PersonSellPage from "@/view/sell/PersonSellPage";
 import HomeServicePage from "@/view/service/HomeServicePage";
 import LoginPage from "@/view/login/LoginPage";
 import OperationHomeService from "@/view/service/OperationHomeService";
+import Community from "@/view/community/Community";
 
 Vue.use(Router);
 
@@ -53,6 +54,10 @@ export default new Router({
           path: 'home/operation',
           name: 'OperationHomeService',
           component: OperationHomeService
+        }, {
+          path: 'home/community',
+          name: 'Community',
+          component: Community
         }
       ]
     },

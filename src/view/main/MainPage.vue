@@ -33,6 +33,11 @@
             <i class="el-icon-setting"></i>
             <span slot="title">单位</span>
           </el-menu-item>
+          <el-menu-item
+            index="/main/community">
+            <i class="el-icon-setting"></i>
+            <span slot="title">社区</span>
+          </el-menu-item>
         </el-menu>
       </el-col>
       <el-col :span="21" class="content">
