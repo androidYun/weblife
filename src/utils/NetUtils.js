@@ -36,14 +36,14 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post(url,
         params)
-        .then(function (response) {
+        .then(response => {
           console.log(response.status + "响应数据" + response.data.code);
           if (response.status === 200 && response.data.code === 200) {
             resolve(response.data)
           } else {
             reject({
               code: 0,
-              msg: "",
+              msg: response.data.message,
               data: ""
             });
           }

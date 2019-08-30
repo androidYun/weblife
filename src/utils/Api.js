@@ -1,4 +1,4 @@
-const base_url = "http://localhost:8080/";
+const base_url = "http://localhost:8084/";
 export default {
   head_url: base_url + "uploads/headshot/",
   add_unit: base_url + "unit/add",//添加单位
@@ -19,4 +19,14 @@ export default {
   home_service_detail: base_url + "service",//添加家政服务
   home_service_update: base_url + "service/update",//更新家政服务
   home_service_delete: base_url + "service/delete",//删除家政服务
+  /*社区添加*/
+  community_list: base_url + "community/list",//社区列表
+  community_add: base_url + "community/add",//添加社区
+  community_delete: base_url + "community/delete",//删除社区
+  /*楼宇*/
+  build_number_list: base_url + "build/list",//社区列表
+  build_number_add: base_url + "build/add",//添加社区
+  build_number_delete: base_url + "build/delete",//删除社区
+  build_number_detail: base_url + "build/detail",//获取详情
+  build_number_update: base_url + "build/update",//更新
 }

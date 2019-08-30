@@ -11,6 +11,8 @@ import HomeServicePage from "@/view/service/HomeServicePage";
 import LoginPage from "@/view/login/LoginPage";
 import OperationHomeService from "@/view/service/OperationHomeService";
 import Community from "@/view/community/Community";
+import BuildNumber from "@/view/build/BuildNumber";
+import EditBuildNumber from "@/view/build/EditBuildNumber";
 
 Vue.use(Router);
 
@@ -55,9 +57,24 @@ export default new Router({
           name: 'OperationHomeService',
           component: OperationHomeService
         }, {
-          path: 'home/community',
+          path: 'community',
           name: 'Community',
           component: Community
+        },
+        {
+          path: 'community',
+          name: 'Community',
+          component: Community
+        },
+        {
+          path: 'build',
+          name: 'BuildNumber',
+          component: BuildNumber
+        },
+        {
+          path: 'build/edit',
+          name: 'EditBuildNumber',
+          component: EditBuildNumber
         }
       ]
     },
