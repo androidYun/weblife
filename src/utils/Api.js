@@ -1,4 +1,4 @@
-const base_url = "http://localhost:8084/";
+const base_url = "http://localhost:8084/apis";
 export default {
   head_url: base_url + "uploads/headshot/",
   add_unit: base_url + "unit/add",//添加单位

@@ -13,7 +13,7 @@ import OperationHomeService from "@/view/service/OperationHomeService";
 import Community from "@/view/community/Community";
 import BuildNumber from "@/view/build/BuildNumber";
 import EditBuildNumber from "@/view/build/EditBuildNumber";
-
+import Category from "@/view/category/Category";
 Vue.use(Router);
 
 export default new Router({
@@ -75,6 +75,11 @@ export default new Router({
           path: 'build/edit',
           name: 'EditBuildNumber',
           component: EditBuildNumber
+        },
+        {
+          path: 'category',
+          name: 'Category',
+          component: Category
         }
       ]
     },
