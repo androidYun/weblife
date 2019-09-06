@@ -1,43 +1,38 @@
 <template>
   <div>
     <el-table
-      :data="reserveOrderList"
+      :data="productOrderDetailList"
       border
       style="width: 100%">
       <el-table-column
         class="operation_div"
-        prop="reserveGood.reserveId"
+        prop="productDetail.productId"
         align="center"
         label="物品编号">
       </el-table-column>
       <el-table-column
-        prop="reserveGood.goodName"
+        prop="productDetail.productName"
         align="center"
         label="名称"
         class="operation_div">
       </el-table-column>
 
       <el-table-column
-        prop="reserveOrder.buyCount"
-        label="购买数量"
-        class="operation_div">
-      </el-table-column>
-      <el-table-column
-        prop="reserveOrder.expectAmount"
+        prop="productOrder.totalPrice"
         align="center"
         label="预计金额"
         class="operation_div">
       </el-table-column>
       <el-table-column
-        prop="reserveGood.reserveFinishTime"
+        prop="address.userName"
         align="center"
-        label="预定时间"
+        label="姓名"
         class="operation_div">
       </el-table-column>
       <el-table-column
-        prop="reserveGood.deliveryTime"
+        prop="address.phoneNumber"
         align="center"
-        label="派送时间"
+        label="电话"
         class="operation_div">
       </el-table-column>
 
@@ -62,21 +57,15 @@
     export default {
         data() {
             return {
-                reserveOrderList: [],
+                productOrderDetailList: [],
                 allCount: 10
             }
         },
         mounted() {
-            this.$netUtils.get(this.$apis.reserve_order_detail, {
-                reserveId: 5,
-                pageData: {
-                    pageSize: 0,
-                    pageNumber:
-                        10
-                }
+            this.$netUtils.get(this.$apis.order_all_list, {
+                orderStatus: 0,
             }).then((response) => {
-                this.reserveOrderList = response.data.list;
-                this.allCount = response.data.totalCount;
+                this.productOrderDetailList = response.data;
             })
         },
         props: {
