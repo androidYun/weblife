@@ -9,7 +9,8 @@ yarn-error.log*
 selenium-debug.log
 
 # Editor directories and files
-.idea
+.idea/
+.git/
 .vscode
 *.suo
 *.ntvs*

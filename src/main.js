@@ -173,7 +173,7 @@ Vue.prototype.$netUtils = NetUtils;
 Vue.prototype.$stringUtils = StringUtils;
 Vue.prototype.$apis = Apis;
 Vue.prototype.$constant = Constant;
-Vue.prototype.sessionUtils = SessionStorageUtils;
+Vue.prototype.$sessionUtils = SessionStorageUtils;
 import QS from 'qs'
 /* eslint-disable no-new */
 new Vue({
@@ -182,15 +182,15 @@ new Vue({
   components: {App},
   template: '<App/>'
 });
-// router.beforeEach((to, from, next) => {
-//   let loginState=SessionStorageUtils.getLoginState();
-//   if (!loginState) {
-//     if (to.path === '/login') { //这就是跳出循环的关键
-//       next()
-//     } else {
-//       next({path: "/login"});
-//     }
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  let token = SessionStorageUtils.getToken();
+  if (token === null || token === undefined || token === "") {
+    if (to.path === '/login') { //这就是跳出循环的关键
+      next()
+    } else {
+      next({path: "/login"});
+    }
+  } else {
+    next();
+  }
+});

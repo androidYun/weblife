@@ -16,6 +16,11 @@ export default {
           if (response.status === 200 && response.data.code === 200) {
             resolve(response.data)
           } else {
+            if (response.data.code === 70002) {
+              this.$router.push({
+                path: "/login"
+              })
+            }
             reject({
               code: 0,
               msg: response.data.message,

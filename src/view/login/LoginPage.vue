@@ -47,7 +47,8 @@
                     password: this.password,
                     roleType: this.role
                 }).then((response) => {
-                    this.sessionUtils.setLoginState(true);
+                    this.$sessionUtils.setLoginState(true);
+                    this.$sessionUtils.setToken(response.data.token);
                     this.$router.push({
                         path: "/main"
                     })
