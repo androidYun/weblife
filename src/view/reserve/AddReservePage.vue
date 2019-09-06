@@ -4,7 +4,7 @@
       <el-col :span="8">
         <div class="item">
           <span class="title">物品名称</span>
-          <el-input class="input" v-model="reserveGood.goodName" placeholder="请输入内容"></el-input>
+          <el-input class="input" v-model="reserveGood.productName" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="8">
@@ -31,7 +31,7 @@
       <el-col :span="20">
         <div class="item">
           <span class="title">物品描述</span>
-          <el-input class="input" type="textarea" maxlength="200" v-model="reserveGood.goodDesc"
+          <el-input class="input" type="textarea" maxlength="200" v-model="reserveGood.productDesc"
                     placeholder="请输入内容"></el-input>
         </div>
       </el-col>
@@ -56,12 +56,25 @@
           </el-select>
         </div>
       </el-col>
+      <el-col :span="8">
+        <div class="item">
+          <span class="title">商品分类</span>
+          <el-select class="input" v-model="reserveGood.categoryName" @change="selectProductCategory" placeholder="请选择">
+            <el-option
+              v-for="item in categoryList"
+              :key="item.label"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+      </el-col>
     </el-row>
     <el-row :gutter="20" class="el-row">
       <el-col :span="6">
         <div class="item">
           <span class="title">商品价格</span>
-          <el-input class="input" type="number" v-model="reserveGood.goodPrice" placeholder="请输入内容"></el-input>
+          <el-input class="input" type="number" v-model="reserveGood.productPrice" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="6">
@@ -82,7 +95,7 @@
         <div class="item">
           <span class="title">结束时间</span>
           <el-date-picker
-            v-model="reserveGood.reserveFinishTime"
+            v-model="reserveGood.productFinishTime"
             type="datetime"
             value-format="yyyy-MM-dd hh:mm:ss"
             placeholder="选择日期时间">
@@ -107,7 +120,7 @@
       <el-upload
         class="upload-demo"
         ref="upload"
-        action="http://127.0.0.1:8080/file/singleImageUpdate"
+        v-bind:action="updateImageUrl"
         :on-preview="handlePreview"
         :auto-upload="false"
         :on-remove="handleRemove"
@@ -133,22 +146,24 @@
             return {
                 reserveGood: {
                     imageUrl: "",
-                    goodName: "",
+                    productName: "",
+                    categoryId: -1,
+                    categoryName: "",
                     maxCount: 0,
-                    goodDesc: "",
-                    goodPrice: 0,
+                    productDesc: "",
+                    productPrice: 0,
                     unit: "",
                     marketPrice: 0,
-                    deliveryType: 0,
+                    deliveryType: -1,
                     deliveryMoney: 0.0,
-                    reserveFinishTime: "",
+                    productFinishTime: "",
                     deliveryTime: "",
                     pickAddress: "",
-                    publishPhone: ""
+                    publishPhone: "",
                 },
                 filterFileList: [],
                 goodUnitList: [],
-                updateImageUrl: "http://127.0.0.1:8080/file/singleImageUpdate",
+                updateImageUrl: this.$apis.image_update_url,
                 defaultDeliveryValue: "派送和自取都支持",
                 deliveryOptions: [{
                     value: '0',
@@ -159,26 +174,30 @@
                 }, {
                     value: '2',
                     label: '派送'
-                }]
+                }],
+                categoryList: []
             }
         },
         methods: {
             selectDeliveryType(key) {
-                this.deliveryType = this.deliveryOptions[key].value
+                this.reserveGood.deliveryType = this.deliveryOptions[key].value
+            },
+            selectProductCategory(key) {
+                this.reserveGood.categoryId = this.categoryList[key].value
+                this.reserveGood.categoryName = this.categoryList[key].label
             },
             updateImage() {
                 this.$refs.upload.submit();
             },
             submitReserveProtect: function () {
-
-                if (this.$stringUtils.isEmpty(this.reserveGood.goodName)) {
+                if (this.$stringUtils.isEmpty(this.reserveGood.productName)) {
                     this.$message({
                         message: '商品名字不能为空',
                         type: 'warning'
                     });
                     return
                 }
-                if (this.$stringUtils.isEmpty(this.reserveGood.goodDesc)) {
+                if (this.$stringUtils.isEmpty(this.reserveGood.productDesc)) {
                     this.$message({
                         message: '商品描述不能为空',
                         type: 'warning'
@@ -199,14 +218,28 @@
                     });
                     return
                 }
-                if (this.$stringUtils.isEmpty(this.reserveGood.publishPhone)) {
+                if (this.reserveGood.deliveryType < 0) {
                     this.$message({
-                        message: '手机号不能为空',
+                        message: '请送货类型',
                         type: 'warning'
                     });
                     return
                 }
-                if (this.$stringUtils.isEmpty(this.reserveGood.reserveFinishTime)) {
+                if (this.reserveGood.categoryId < 0) {
+                    this.$message({
+                        message: '请选择商品分类',
+                        type: 'warning'
+                    });
+                    return
+                }
+                if (this.$stringUtils.isEmpty(this.reserveGood.productFinishTime)) {
+                    this.$message({
+                        message: '请选择结束时间',
+                        type: 'warning'
+                    });
+                    return
+                }
+                if (this.$stringUtils.isEmpty(this.reserveGood.productFinishTime)) {
                     this.$message({
                         message: '请选择结束时间',
                         type: 'warning'
@@ -227,7 +260,7 @@
                     });
                     return
                 }
-                if (this.reserveGood.goodPrice <= 0) {
+                if (this.reserveGood.productPrice <= 0) {
                     this.$message({
                         message: '请填写价格',
                         type: 'warning'
@@ -255,18 +288,31 @@
                             this.$router.back()
                         })
                 } else {
-                    this.$netUtils.post(this.$apis.reserve_add, this.reserveGood)
+                    this.$netUtils.post(this.$apis.reserve_update, this.reserveGood)
                         .then((response) => {
                             this.$router.back()
                         })
                 }
 
             },
+            loadCategoryList() {
+                this.$netUtils.get(this.$apis.product_category_list)
+                    .then((response) => {
+                        if (response.data !== undefined) {
+                            let categoryList = response.data.map((item) => {
+                                return {
+                                    value: item.categoryId,
+                                    label: item.categoryName
+                                }
+                            });
+                            this.categoryList = categoryList;
+                        }
+                    })
+            },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
             updateSuccess(response, file, fileList) {
-                console.log("上传成功", response.data);
                 this.reserveGood.imageUrl = response.data;
             },
 
@@ -284,12 +330,13 @@
             });
             let type = this.$route.query.type;
             let reserveId = this.$route.query.reserveId;
-            if (type === 1) {
+            if (type === 1) {//0 查看 1是编辑
                 this.$netUtils.get(this.$apis.reserve_detail + reserveId).then((response) => {
                     this.reserveGood = response.data;
                     this.filterFileList = [this.reserveGood.imageUrl]
                 });
             }
+            this.loadCategoryList();
         },
         props: {
             reserveId: {

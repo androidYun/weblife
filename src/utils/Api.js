@@ -4,12 +4,12 @@ export default {
   add_unit: base_url + "unit/add",//添加单位
   unit_list: base_url + "unit/list",//单位列表
   delete_unit: base_url + "unit/delete",//单位列表
-  reserve_good_list: base_url + "reserve/list",//预购商品列表
-  reserve_add: base_url + "reserve/add",//添加预购
-  reserve_update: base_url + "reserve/update",//添加预购
-  reserve_delete: base_url + "reserve/delete/",//添加预购
-  reserve_detail: base_url + "reserve/",//获取预购信息
-  reserve_order_detail: base_url + "reserve/order/detail",//订单列表详情
+  reserve_good_list: base_url + "product/list",//预购商品列表
+  reserve_add: base_url + "product/add",//添加预购
+  reserve_update: base_url + "product/update",//添加预购
+  reserve_delete: base_url + "product/delete/",//添加预购
+  reserve_detail: base_url + "product/",//获取预购信息
+  reserve_order_detail: base_url + "product/order/detail",//订单列表详情
   /*权限登录*/
   role_login: base_url + "role/login",//登录
   single_update_file: base_url + "file/singleImageUpdate",//单图片上传
@@ -29,4 +29,11 @@ export default {
   build_number_delete: base_url + "build/delete",//删除社区
   build_number_detail: base_url + "build/detail",//获取详情
   build_number_update: base_url + "build/update",//更新
+  /*商品分类*/
+  product_category_list: base_url + "category/list",//商品分类列表
+  product_category_add: base_url + "category/add",//商品分类添加
+  product_category_delete: base_url + "category/delete",//商品分类删除
+
+  /*图片上传*/
+  image_update_url: base_url + "/file/singleImageUpdate"
 }
