@@ -134,7 +134,9 @@
             }
         },
         mounted() {
-            this.$netUtils.get(this.$apis.reserve_good_list).then((response) => {
+            this.$netUtils.get(this.$apis.reserve_good_list, {
+                merchantId: this.$sessionUtils.getMerchant()
+            }).then((response) => {
                     this.reserveList = response.data;
                 }
             )

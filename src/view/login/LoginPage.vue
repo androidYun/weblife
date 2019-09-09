@@ -18,9 +18,9 @@
 
       <div class="role">
         <template>
-          <el-radio v-model="role" label="1">管理员</el-radio>
-          <el-radio v-model="role" label="2">超级管理员</el-radio>
-          <el-radio v-model="role" label="3">店主</el-radio>
+          <el-radio v-model="role" label="0">管理员</el-radio>
+          <el-radio v-model="role" label="1">超级管理员</el-radio>
+          <el-radio v-model="role" label="2">店主</el-radio>
         </template>
 
       </div>
@@ -35,7 +35,7 @@
             return {
                 phoneNumber: "",
                 password: "",
-                role: '1'
+                role: '0'
             }
         },
         methods: {
@@ -49,6 +49,7 @@
                 }).then((response) => {
                     this.$sessionUtils.setLoginState(true);
                     this.$sessionUtils.setToken(response.data.token);
+                    this.$sessionUtils.setToken(response.data.merchantId);
                     this.$router.push({
                         path: "/main"
                     })

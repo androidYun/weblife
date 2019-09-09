@@ -14,6 +14,7 @@ import Community from "@/view/community/Community";
 import BuildNumber from "@/view/build/BuildNumber";
 import EditBuildNumber from "@/view/build/EditBuildNumber";
 import Category from "@/view/category/Category";
+import UserManager from "@/view/manager/UserManager";
 Vue.use(Router);
 
 export default new Router({
@@ -80,6 +81,11 @@ export default new Router({
           path: 'category',
           name: 'Category',
           component: Category
+        },
+        {
+          path: 'user/manager',
+          name: 'UserManager',
+          component: UserManager
         }
       ]
     },

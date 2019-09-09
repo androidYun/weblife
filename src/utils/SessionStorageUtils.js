@@ -2,6 +2,9 @@ const login_state = "login_state";
 
 const token_key = "token_key";
 
+
+const merchant_key = "merchant_key";
+
 export default {
 
   setLoginState(state) {
@@ -18,6 +21,12 @@ export default {
   getToken() {
     console.log("token")
     return sessionStorage.getItem(token_key)
+  },
+  setMerchant(token) {
+    sessionStorage.setItem(merchant_key, token)
+  },
+  getMerchant() {
+    return sessionStorage.getItem(merchant_key)
   },
 
 }
