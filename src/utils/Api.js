@@ -10,6 +10,8 @@ export default {
   reserve_delete: base_url + "product/delete/",//添加预购
   reserve_detail: base_url + "product/",//获取预购信息
   reserve_order_detail: base_url + "product/order/detail",//订单列表详情
+  /*订单*/
+  order_all_list: base_url + "order/allList",//所有订单列表
   /*权限登录*/
   role_login: base_url + "role/login",//登录
   single_update_file: base_url + "file/singleImageUpdate",//单图片上传
