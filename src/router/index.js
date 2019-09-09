@@ -14,6 +14,8 @@ import Community from "@/view/community/Community";
 import BuildNumber from "@/view/build/BuildNumber";
 import EditBuildNumber from "@/view/build/EditBuildNumber";
 import Category from "@/view/category/Category";
+import OrderProduct from "@/view/order/OrderProductpager";
+
 Vue.use(Router);
 
 export default new Router({
@@ -80,6 +82,11 @@ export default new Router({
           path: 'category',
           name: 'Category',
           component: Category
+        },
+        {
+          path: 'order/product',
+          name: 'OrderProduct',
+          component: OrderProduct
         }
       ]
     },

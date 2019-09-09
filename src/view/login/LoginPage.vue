@@ -24,7 +24,7 @@
         </template>
 
       </div>
-      <el-button type="primary" @click="login">主要按钮</el-button>
+      <el-button type="primary" @click="login">登录</el-button>
     </div>
   </div>
 </template>
