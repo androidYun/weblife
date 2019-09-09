@@ -24,6 +24,11 @@
             <i class="el-icon-document"></i>
             <span slot="title">家政服务</span>
           </el-menu-item>
+          <el-menu-item index="/main/user/manager">
+            <i class="el-icon-document"></i>
+            <span slot="title">用户管理</span>
+          </el-menu-item>
+
           <el-menu-item index="/main/sell">
             <i class="el-icon-document"></i>
             <span slot="title">个人卖点</span>

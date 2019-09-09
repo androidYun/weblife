@@ -15,6 +15,7 @@ import BuildNumber from "@/view/build/BuildNumber";
 import EditBuildNumber from "@/view/build/EditBuildNumber";
 import Category from "@/view/category/Category";
 import OrderProduct from "@/view/order/OrderProductpager";
+import UserManager from "@/view/manager/UserManager";
 
 Vue.use(Router);
 
@@ -87,6 +88,10 @@ export default new Router({
           path: 'order/product',
           name: 'OrderProduct',
           component: OrderProduct
+        }, {
+          path: 'user/manager',
+          name: 'UserManager',
+          component: UserManager
         }
       ]
     },
