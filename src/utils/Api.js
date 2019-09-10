@@ -7,7 +7,7 @@ export default {
   reserve_good_list: base_url + "product/list",//预购商品列表
   reserve_add: base_url + "product/add",//添加预购
   reserve_update: base_url + "product/update",//添加预购
-  reserve_delete: base_url + "product/delete/",//添加预购
+  reserve_delete: base_url + "product/delete/",//删除预购
   reserve_detail: base_url + "product/",//获取预购信息
   reserve_order_detail: base_url + "product/order/detail",//订单列表详情
   /*订单*/
@@ -37,5 +37,11 @@ export default {
   product_category_delete: base_url + "category/delete",//商品分类删除
 
   /*图片上传*/
-  image_update_url: base_url + "/file/singleImageUpdate"
+  image_update_url: base_url + "/file/singleImageUpdate",
+
+  /*用户管理*/
+  manage_user_add:base_url+"role/add",//用户添加
+  manage_user_list:base_url+"role/list",//用户列表
+  manage_user_delete:base_url+"role/delete",//用户列表
+  manage_user_update:base_url+"role/update",//用户列表
 }

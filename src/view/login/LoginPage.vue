@@ -41,7 +41,6 @@
         methods: {
 
             login() {
-                let that = this;
                 this.$netUtils.get(this.$apis.role_login, {
                     phoneNumber: this.phoneNumber,
                     password: this.password,
@@ -49,12 +48,13 @@
                 }).then((response) => {
                     this.$sessionUtils.setLoginState(true);
                     this.$sessionUtils.setToken(response.data.token);
-                    this.$sessionUtils.setToken(response.data.merchantId);
+                    this.$sessionUtils.setMerchant(response.data.merchantId);
+                    this.$sessionUtils.setRoleType(response.data.roleType);
                     this.$router.push({
                         path: "/main"
                     })
                 }).catch((error) => {
-                    that.$message.error(error.msg);
+                    this.$message(error.msg);
                 })
             }
         }

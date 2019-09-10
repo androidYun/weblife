@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-button v-bind:if="reserveList.length>0" type="success" @click="addReserveGood">添加商品</el-button>
     <el-table
       :data="reserveList"
       border
@@ -117,7 +118,7 @@
                 this.$router.push({
                     path: "reserve/add",
                     query: {
-                        reserveId: row.productId,
+                        reserveId: -1,
                         type: 0
                     }
                 })

@@ -160,6 +160,7 @@
                     deliveryTime: "",
                     pickAddress: "",
                     publishPhone: "",
+                    merchantId: this.$sessionUtils.getMerchant()
                 },
                 filterFileList: [],
                 goodUnitList: [],
@@ -281,7 +282,7 @@
                     });
                     return
                 }
-                let type = this.$route.query.type;
+                let type = this.$route.query.type;//0是添加 1是编辑
                 if (type === 0) {
                     this.$netUtils.post(this.$apis.reserve_add, this.reserveGood)
                         .then((response) => {
@@ -330,7 +331,7 @@
             });
             let type = this.$route.query.type;
             let reserveId = this.$route.query.reserveId;
-            if (type === 1) {//0 查看 1是编辑
+            if (type === 1) {//0 添加 1是编辑
                 this.$netUtils.get(this.$apis.reserve_detail + reserveId).then((response) => {
                     this.reserveGood = response.data;
                     this.filterFileList = [this.reserveGood.imageUrl]

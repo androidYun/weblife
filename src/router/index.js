@@ -16,6 +16,7 @@ import EditBuildNumber from "@/view/build/EditBuildNumber";
 import Category from "@/view/category/Category";
 import OrderProduct from "@/view/order/OrderProductpager";
 import UserManager from "@/view/manager/UserManager";
+import UserEditPage from "@/view/manager/UserEditPage";
 
 Vue.use(Router);
 
@@ -92,6 +93,10 @@ export default new Router({
           path: 'user/manager',
           name: 'UserManager',
           component: UserManager
+        }, {
+          path: 'user/edit',
+          name: 'UserEditPage',
+          component: UserEditPage
         }
       ]
     },

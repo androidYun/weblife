@@ -13,18 +13,18 @@
       </el-col>
       <el-col :span="10">
         <div style="display: flex">
-            <el-date-picker
-              v-model="startTime"
-              type="date"
-              placeholder="开始日期">
-            </el-date-picker>
+          <el-date-picker
+            v-model="startTime"
+            type="date"
+            placeholder="开始日期">
+          </el-date-picker>
 
-            <el-date-picker
-              v-model="endTime"
-              align="right"
-              type="date"
-              placeholder="结束日期">
-            </el-date-picker>
+          <el-date-picker
+            v-model="endTime"
+            align="right"
+            type="date"
+            placeholder="结束日期">
+          </el-date-picker>
           <el-button type="primary" @click="clickFilter">筛选</el-button>
         </div>
       </el-col>
@@ -94,6 +94,8 @@
 
 <script>
     import dateTime from '@/utils/DateTime'
+    import qs from 'qs'
+
     export default {
         data() {
             return {
@@ -114,10 +116,11 @@
                 })
             },
             loadOrderList() {
+                console.log("ddd" +new Date())
                 this.$netUtils.get(this.$apis.order_all_list, {
                     orderStatus: this.orderStatus,
-                    startTime: dateTime.serializeDate(this.startTime),
-                    endTime: dateTime.serializeDate(this.endTime)
+                    startTime: new Date(),
+                    endTime: new Date()
                 }).then((response) => {
                     this.productOrderDetailList = response.data;
                 })

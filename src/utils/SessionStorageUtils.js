@@ -5,6 +5,8 @@ const token_key = "token_key";
 
 const merchant_key = "merchant_key";
 
+const role_type_key = "role_type_key";
+
 export default {
 
   setLoginState(state) {
@@ -22,11 +24,16 @@ export default {
     console.log("token")
     return sessionStorage.getItem(token_key)
   },
-  setMerchant(token) {
-    sessionStorage.setItem(merchant_key, token)
+  setMerchant(merchantId) {
+    sessionStorage.setItem(merchant_key, merchantId)
   },
   getMerchant() {
     return sessionStorage.getItem(merchant_key)
   },
-
+  setRoleType(roleType) {
+    sessionStorage.setItem(role_type_key, roleType)
+  },
+  getRoleType() {
+    return sessionStorage.getItem(role_type_key)
+  },
 }

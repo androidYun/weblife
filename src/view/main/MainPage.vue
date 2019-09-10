@@ -4,7 +4,7 @@
       <el-col :span="3" class="navi">
         <h5 class="title">预购管理系统</h5>
         <el-menu
-          default-active="/main/reserve"
+          v-bind:default-active="currentPath"
           class="el-menu-vertical-demo"
           background-color="#545c64"
           text-color="#fff"
@@ -24,7 +24,7 @@
             <i class="el-icon-document"></i>
             <span slot="title">家政服务</span>
           </el-menu-item>
-          <el-menu-item index="/main/user/manager">
+          <el-menu-item index="/main/user/manager" v-bind:show="false">
             <i class="el-icon-document"></i>
             <span slot="title">用户管理</span>
           </el-menu-item>
@@ -60,9 +60,15 @@
 <script>
     export default {
         data() {
-            return {}
+            return {
+                currentPath: "/main/reserve",
+                roleType: this.$sessionUtils.getRoleType()
+            }
         },
-        methods: {}
+        methods: {},
+        mounted() {
+            this.currentPath = this.$route.path
+        }
     }
 </script>
 
