@@ -18,9 +18,9 @@
         align="center"
         class="role_operation_tr">
         <template slot-scope="scope">
-         <span v-if="scope.row.roleType===0">超级管理员</span>
-         <span v-else-if="scope.row.roleType===1">管理员</span>
-         <span v-else-if="scope.row.roleType===2">普通会员</span>
+          <span v-if="scope.row.roleType===0">超级管理员</span>
+          <span v-else-if="scope.row.roleType===1">管理员</span>
+          <span v-else-if="scope.row.roleType===2">普通会员</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -65,6 +65,7 @@
         class="role_operation_tr">
         <template slot-scope="scope">
           <el-button @click="deleteRole(scope.row)" type="text" size="small">删除</el-button>
+          <el-button @click="updateRole(scope.row)" type="text" size="small" >编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -81,7 +82,15 @@
         methods: {
             addUser() {
                 this.$router.push({
+                    path: "add",
+                });
+            },
+            updateRole(row) {
+                this.$router.push({
                     path: "edit",
+                    query: {
+                        merchantId: row.merchantId
+                    }
                 });
             },
             loadRoleList() {

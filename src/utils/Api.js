@@ -40,8 +40,9 @@ export default {
   image_update_url: base_url + "/file/singleImageUpdate",
 
   /*用户管理*/
-  manage_user_add:base_url+"role/add",//用户添加
-  manage_user_list:base_url+"role/list",//用户列表
-  manage_user_delete:base_url+"role/delete",//用户列表
-  manage_user_update:base_url+"role/update",//用户列表
+  manage_user_add: base_url + "role/add",//用户添加
+  manage_user_list: base_url + "role/list",//用户列表
+  manage_user_detail: base_url + "role",//用户详情
+  manage_user_delete: base_url + "role/delete",//用户列表
+  manage_user_update: base_url + "role/update",//用户列表
 }

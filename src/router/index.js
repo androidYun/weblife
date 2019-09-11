@@ -17,6 +17,7 @@ import Category from "@/view/category/Category";
 import OrderProduct from "@/view/order/OrderProductpager";
 import UserManager from "@/view/manager/UserManager";
 import UserEditPage from "@/view/manager/UserEditPage";
+import UserAddPage from "@/view/manager/UserAddPage";
 
 Vue.use(Router);
 
@@ -97,6 +98,11 @@ export default new Router({
           path: 'user/edit',
           name: 'UserEditPage',
           component: UserEditPage
+        },
+        {
+          path: 'user/add',
+          name: 'UserAddPage',
+          component: UserAddPage
         }
       ]
     },

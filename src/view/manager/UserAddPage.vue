@@ -43,7 +43,7 @@
     <el-row>
       <el-col :span="12">
         <div class="item">
-          <el-button type="primary" @click="updateUser">更新</el-button>
+          <el-button type="primary" @click="addUser">添加</el-button>
         </div>
       </el-col>
     </el-row>
@@ -64,21 +64,10 @@
                 }
             }
         }, methods: {
-            updateUser() {
-                this.$netUtils.post(this.$apis.manage_user_update, this.roleInform).then((response) => {
+            addUser() {
+                this.$netUtils.post(this.$apis.manage_user_add, this.roleInform).then((response) => {
                     this.$router.back();
                 })
-            }
-        },
-        mounted() {
-            this.$netUtils.get(this.$apis.manage_user_detail+"/"+this.$route.query.merchantId).then((response) => {
-                this.roleInform = response.data;
-            })
-        },
-        props: {
-            merchantId: {
-                type: Number,
-                default: 0
             }
         }
     }

@@ -100,7 +100,10 @@
     <el-pagination
       background
       layout="prev, pager, next"
-      :total="1000">
+      @current-change="changePage"
+      :page-size="pageSize"
+      :total="totalPage"
+    >
     </el-pagination>
   </div>
 </template>
@@ -110,7 +113,10 @@
         data() {
             return {
                 reserveList: [],
-                imageUrl: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2121206715,2955288754&fm=26&gp=0.jpg"
+                imageUrl: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2121206715,2955288754&fm=26&gp=0.jpg",
+                totalPage: 10,
+                currentPage: 1,
+                pageSize: 20
             }
         },
         methods: {
@@ -136,15 +142,27 @@
                 this.$netUtils.get(this.$apis.reserve_delete + row.productId).then((response) => {
                     this.reserveList = response.data;
                 })
+            },
+            changePage(event) {
+                this.loadProductList(event);
+            },
+            loadProductList(currentPage) {
+                this.$netUtils.post(this.$apis.reserve_good_list, {
+                    merchantId: this.$sessionUtils.getMerchant(),
+                    pageRequest: {
+                        pageSize: this.pageSize,
+                        pageNumber: currentPage
+                    }
+
+                }).then((response) => {
+                        this.reserveList = response.data.list;
+                        this.totalPage = response.data.totalPageSize
+                    }
+                )
             }
         },
         mounted() {
-            this.$netUtils.get(this.$apis.reserve_good_list, {
-                merchantId: this.$sessionUtils.getMerchant()
-            }).then((response) => {
-                    this.reserveList = response.data;
-                }
-            )
+            this.loadProductList(this.currentPage);
         },
     }
 </script>
