@@ -1,97 +1,69 @@
 <template>
-  <div>
-    <el-row :gutter="20" class="el-row">
-      <el-col :span="8">
-        <div class="item">
-          <span class="title">物品名称</span>
-          <el-input class="input" v-model="reserveGood.productName" placeholder="请输入内容"></el-input>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="item">
-          <span class="title">物品数量</span>
-          <el-input class="input" type="number" v-model="reserveGood.maxCount" placeholder="请输入内容"></el-input>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="item">
-          <span class="title">物品单位</span>
-          <el-select class="input" v-model="reserveGood.unit" placeholder="请选择">
-            <el-option
-              v-for="item in goodUnitList"
-              :key="item.unitId"
-              :label="item.unitName"
-              :value="item.unitName">
-            </el-option>
-          </el-select>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20" class="el-row">
-      <el-col :span="20">
-        <div class="item">
-          <span class="title">物品描述</span>
-          <el-input class="input" type="textarea" maxlength="200" v-model="reserveGood.productDesc"
-                    placeholder="请输入内容"></el-input>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20" class="el-row">
-      <el-col :span="8">
-        <div class="item">
-          <span class="title">地址</span>
-          <el-input class="input" v-model="reserveGood.pickAddress" placeholder="请输入内容"></el-input>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="item">
-          <span class="title">派送类型</span>
-          <el-select class="input" v-model="defaultDeliveryValue" @change="selectDeliveryType" placeholder="请选择">
-            <el-option
-              v-for="item in deliveryOptions"
-              :key="item.label"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="item">
-          <span class="title">商品分类</span>
-          <el-select class="input" v-model="reserveGood.categoryName" @change="selectProductCategory" placeholder="请选择">
-            <el-option
-              v-for="item in categoryList"
-              :key="item.label"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20" class="el-row">
-      <el-col :span="6">
-        <div class="item">
-          <span class="title">商品价格</span>
-          <el-input class="input" type="number" v-model="reserveGood.productPrice" placeholder="请输入内容"></el-input>
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div class="item">
-          <span class="title">市场价格</span>
-          <el-input class="input" input="number" v-model="reserveGood.marketPrice" placeholder="请输入内容"></el-input>
-        </div>
-      </el-col>
-      <el-col :span="12">
-        <div class="item">
-          <span class="title">发布人手机号</span>
-          <el-input class="input" type="number" v-model="reserveGood.publishPhone" placeholder="请输入内容"></el-input>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20" class="el-row">
-      <el-col :span="8">
+  <div style="display: flex;justify-content: center">
+    <div class="add_product_body">
+      <div class="item">
+        <span class="title">商品分类</span>
+        <el-select class="input" v-model="reserveGood.categoryName" @change="selectProductCategory" placeholder="请选择">
+          <el-option
+            v-for="item in categoryList"
+            :key="item.label"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="item">
+        <span class="title">物品名称</span>
+        <el-input class="input" v-model="reserveGood.productName" placeholder="请输入内容"></el-input>
+      </div>
+      <div class="item">
+        <span class="title">物品描述</span>
+        <el-input class="input" type="textarea" maxlength="200" v-model="reserveGood.productDesc"
+                  placeholder="请输入内容"></el-input>
+      </div>
+      <div class="item">
+        <span class="title">物品单位</span>
+        <el-select class="input" v-model="reserveGood.unit" placeholder="请选择">
+          <el-option
+            v-for="item in goodUnitList"
+            :key="item.unitId"
+            :label="item.unitName"
+            :value="item.unitName">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="item">
+        <span class="title">物品数量</span>
+        <el-input class="input" type="number" v-model="reserveGood.maxCount" placeholder="请输入内容"></el-input>
+      </div>
+      <div class="item">
+        <span class="title">地址</span>
+        <el-input class="input" v-model="reserveGood.pickAddress" placeholder="请输入内容"></el-input>
+      </div>
+      <div class="item">
+        <span class="title">派送类型</span>
+        <el-select class="input" v-model="defaultDeliveryValue" @change="selectDeliveryType" placeholder="请选择">
+          <el-option
+            v-for="item in deliveryOptions"
+            :key="item.label"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="item">
+        <span class="title">商品价格</span>
+        <el-input class="input" type="number" v-model="reserveGood.productPrice" placeholder="请输入内容"></el-input>
+      </div>
+      <div class="item">
+        <span class="title">市场价格</span>
+        <el-input class="input" input="number" v-model="reserveGood.marketPrice" placeholder="请输入内容"></el-input>
+      </div>
+      <div class="item">
+        <span class="title">发布人手机号</span>
+        <el-input class="input" type="number" v-model="reserveGood.publishPhone" placeholder="请输入内容"></el-input>
+      </div>
+      <div style="display: flex;justify-content: space-between">
         <div class="item">
           <span class="title">结束时间</span>
           <el-date-picker
@@ -101,8 +73,6 @@
             placeholder="选择日期时间">
           </el-date-picker>
         </div>
-      </el-col>
-      <el-col :span="8">
         <div class="item">
           <span class="title">派送时间</span>
           <el-date-picker
@@ -112,31 +82,30 @@
             placeholder="选择日期时间">
           </el-date-picker>
         </div>
-      </el-col>
-    </el-row>
-
-
-    <div class="submit_update_image">
-      <el-upload
-        class="upload-demo"
-        ref="upload"
-        v-bind:action="updateImageUrl"
-        :on-preview="handlePreview"
-        :auto-upload="false"
-        :on-remove="handleRemove"
-        :on-error="updateFail"
-        :on-success="updateSuccess"
-        :file-list="filterFileList"
-        name="uploadFile"
-        list-type="picture">
-        <el-button slot="trigger" size="small" type="primary">选择文件</el-button>
-        <el-button style="margin-left: 10px;" size="small" type="success" @click="updateImage">上传到服务器
-        </el-button>
-        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-      </el-upload>
-      <el-button type="primary" @click="submitReserveProtect">提交数据</el-button>
+      </div>
+      <div class="submit_update_image">
+        <el-upload
+          class="upload-demo"
+          ref="upload"
+          v-bind:action="updateImageUrl"
+          :on-preview="handlePreview"
+          :auto-upload="false"
+          :on-remove="handleRemove"
+          :on-error="updateFail"
+          :on-success="updateSuccess"
+          :file-list="filterFileList"
+          name="uploadFile"
+          list-type="picture">
+          <el-button slot="trigger" size="small" type="primary">选择文件</el-button>
+          <el-button style="margin-left: 10px;" size="small" type="success" @click="updateImage">上传到服务器
+          </el-button>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
+      </div>
+      <el-button type="primary" @click="submitReserveProtect" style="margin-top: 20px;width: 60%;margin-left: 20%">
+        提交数据
+      </el-button>
     </div>
-
   </div>
 </template>
 
@@ -282,7 +251,7 @@
                     });
                     return
                 }
-                let type = this.$route.query.type;//0是添加 1是编辑
+                let type = Number(this.$route.query.type);//0是添加 1是编辑
                 if (type === 0) {
                     this.$netUtils.post(this.$apis.reserve_add, this.reserveGood)
                         .then((response) => {
@@ -354,12 +323,20 @@
 
 <style>
 
-  .el-row {
-    margin-top: 30px;
+  .add_product_body {
+    width: 50%;
+    padding: 30px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    border: 2px dashed #EEEEEE;
+    position: relative;
   }
+
 
   .item {
     display: flex;
+    margin-top: 15px;
   }
 
   .item .title {
